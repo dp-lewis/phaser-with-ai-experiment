@@ -183,6 +183,12 @@ const config = {
 
                 // Remove arrow and end turn if it goes off world bounds
                 this.arrow.update = () => {
+                    // Rotate arrow to match its velocity
+                    if (this.arrow.body && this.arrow.body.velocity) {
+                        const vx = this.arrow.body.velocity.x;
+                        const vy = this.arrow.body.velocity.y;
+                        this.arrow.setAngle(Phaser.Math.RadToDeg(Math.atan2(vy, vx)));
+                    }
                     if (
                         this.arrow.x < -50 || this.arrow.x > WORLD_WIDTH + 50 ||
                         this.arrow.y < -50 || this.arrow.y > 1200 + 50
