@@ -13,6 +13,9 @@ const config = {
     parent: 'game-container',
     scene: {
         create() {
+            // Track current player (1 or 2)
+            this.currentPlayer = 1;
+
             // Player 1 (left, blue)
             this.add.circle(PLAYER1_X, PLAYER_Y, PLAYER_RADIUS, 0x3498db);
             this.add.text(PLAYER1_X, PLAYER_Y + 45, 'Player 1', {
@@ -32,6 +35,18 @@ const config = {
                 font: '32px Arial',
                 color: '#fff',
             }).setOrigin(0.5);
+
+            // Turn indicator
+            this.turnText = this.add.text(400, 100, 'Player 1\'s turn', {
+                font: '24px Arial',
+                color: '#fff',
+            }).setOrigin(0.5);
+
+            // Input to end turn (for now, click anywhere)
+            this.input.on('pointerdown', () => {
+                this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+                this.turnText.setText(`Player ${this.currentPlayer}'s turn`);
+            });
         }
     }
 };
