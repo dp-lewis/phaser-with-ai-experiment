@@ -125,9 +125,32 @@ const config = {
             }).setOrigin(0.5, 0).setScrollFactor(0);
             this.titleText.x = config.width / 2;
 
+            // Instructions modal (fixed to camera)
+            this.instructionsBg = this.add.rectangle(config.width / 2, config.height / 2, Math.min(500, config.width - 40), 180, 0x000000, 0.85).setScrollFactor(0).setOrigin(0.5);
+            this.instructionsText = this.add.text(config.width / 2, config.height / 2 - 30, 'Drag from your player to aim and shoot.\nKnock out your opponent!\nFirst to 0 health loses.', {
+                font: '22px Arial',
+                color: '#fff',
+                align: 'center',
+                wordWrap: { width: Math.min(440, config.width - 80) }
+            }).setOrigin(0.5, 0.5).setScrollFactor(0);
+            this.instructionsBtn = this.add.text(config.width / 2, config.height / 2 + 50, 'Click to Start', {
+                font: 'bold 24px Arial',
+                color: '#ff3333',
+                backgroundColor: '#fff',
+                padding: { left: 16, right: 16, top: 8, bottom: 8 },
+                align: 'center',
+                borderRadius: 8
+            }).setOrigin(0.5, 0.5).setScrollFactor(0).setInteractive({ useHandCursor: true });
+
+            this.input.once('pointerdown', () => {
+                this.instructionsBg.destroy();
+                this.instructionsText.destroy();
+                this.instructionsBtn.destroy();
+            });
+
             // Turn indicator (fixed to camera)
-            this.turnText = this.add.text(0, 70, 'Player 1\'s turn', {
-                font: '24px Arial', color: '#fff',
+            this.turnText = this.add.text(0, 140, 'Player 1\'s turn', {
+                font: '24px Arial', color: '#ff3333', // dynamite red
             }).setOrigin(0.5, 0).setScrollFactor(0);
             this.turnText.x = config.width / 2;
 
